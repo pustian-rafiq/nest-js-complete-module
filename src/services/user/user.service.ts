@@ -21,16 +21,16 @@ export class UserService {
     return body;
   }
 
-  getUser(params) {
-    return params;
+  getUser(userId: number) {
+    return { userId };
   }
-  updateUser(body: CreateUserDto, userID) {
+  updateUser(body: CreateUserDto, userID: number) {
     return {
       ...body,
       userID,
     };
   }
-  deleteUser(userID) {
+  deleteUser(userID: number) {
     return userID;
   }
 }
