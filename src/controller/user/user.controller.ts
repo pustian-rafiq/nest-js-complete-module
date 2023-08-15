@@ -1,5 +1,5 @@
-import { Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { CreateUserDto } from 'src/dto/user-craete.dto';
 import { UserService } from 'src/services/user/user.service';
 
 @Controller('/user')
@@ -11,20 +11,23 @@ export class UserController {
   }
 
   @Post()
-  createUser(@Req() req: Request) {
-    return this.userService.createUser(req.body);
+  createUser(@Body() createUserDto: CreateUserDto) {
+    return this.userService.createUser(createUserDto);
   }
 
   @Get('/:userId')
-  getUserDetails(@Param() params: { userId: string }) {
+  getUserDetails(@Param() params: { userId: number }) {
     return this.userService.getUser(params.userId);
   }
   @Patch('/:userId')
-  updateUser(@Req() req: Request, @Param() params: { userId: string }) {
-    return this.userService.updateUser(req.body, params.userId);
+  updateUser(
+    @Body() updateUserDto: CreateUserDto,
+    @Param() params: { userId: number },
+  ) {
+    return this.userService.updateUser(updateUserDto, params.userId);
   }
   @Get('/:userId')
-  deleteUser(@Param() params: { userId: string }) {
+  deleteUser(@Param() params: { userId: number }) {
     return this.userService.deleteUser(params.userId);
   }
 }
